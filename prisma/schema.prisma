@@ -1,0 +1,95 @@
+// Inhalt — content layer schema (planning draft).
+//
+// Structure only. No database is connected yet (DATABASE_URL wired up later),
+// and Prisma is not installed as a dependency. This file defines the tables and
+// relationships so the data model can be reviewed before any of it is built.
+//
+// Deliberately out of scope here (added later):
+//   - Users / authentication. These will come from better-auth (User, Session,
+//     Account, Verification). Project will gain an owner / membership link then.
+//   - The MCP server itself.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// A content space and the tenant boundary. Owns content types, entries, and
+/// API keys. Ownership / membership (via better-auth) is connected later.
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique // used in the read API path
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  apiKeys      ApiKey[]
+  contentTypes ContentType[]
+}
+
+/// Bearer token used by MCP clients. The plaintext secret is shown exactly once
+/// at creation and never stored; we keep a one-way hash plus a display prefix.
+/// `scopes` restricts which content types and actions the token can reach.
+model ApiKey {
+  id         String    @id @default(cuid())
+  projectId  String
+  name       String // "Production", "Claude Desktop"
+  prefix     String // shown in the UI, e.g. inh_live_ab12
+  hash       String    @unique // sha-256 of the full secret
+  scopes     Json // { contentTypes: ["post", "*"], actions: ["read", "patch", ...] }
+  lastUsedAt DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+/// A typed content model. `fields` holds the field definitions that both
+/// describe the MCP tools to a client and validate every write.
+/// Field shape: [{ key, type, required, ...type-specific options }].
+model ContentType {
+  id        String   @id @default(cuid())
+  projectId String
+  key       String // machine name, e.g. "post"
+  name      String // display name, e.g. "Blog Post"
+  fields    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  entries Entry[]
+
+  @@unique([projectId, key])
+}
+
+/// A content item. Carries a working `draft` copy and the last `published`
+/// copy. Publishing copies draft -> published and stamps publishedAt. There is
+/// no version history: the model stays at drafts -> save -> publish.
+model Entry {
+  id            String      @id @default(cuid())
+  contentTypeId String
+  slug          String // human / url id, unique within its content type
+  status        EntryStatus @default(DRAFT)
+  draft         Json // working values, always present
+  published     Json? // last published values, null until first publish
+  publishedAt   DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  contentType ContentType @relation(fields: [contentTypeId], references: [id], onDelete: Cascade)
+
+  @@unique([contentTypeId, slug])
+  @@index([contentTypeId, status])
+}
+
+enum EntryStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
