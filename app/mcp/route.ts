@@ -1,7 +1,7 @@
 // Inhalt MCP server.
 //
-// The protocol IS the API: this exposes the content layer as the eight typed
-// tools sketched in ARCHITECTURE.md. Transport is Streamable HTTP (stateless,
+// The protocol IS the API: this exposes the content layer as eight typed
+// tools, one per content operation. Transport is Streamable HTTP (stateless,
 // no Redis) via mcp-handler; every request authenticates a bearer ApiKey and
 // every tool is gated by that key's scopes. The tools themselves are thin —
 // they resolve auth + scope, then delegate to lib/operations, which is the

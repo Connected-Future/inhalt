@@ -19,7 +19,7 @@ try {
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
 const prisma = new PrismaClient({ adapter })
 
-// Sample content type. Mirrors the field-definition shape in ARCHITECTURE.md and
+// Sample content type. Mirrors the field-definition shape in lib/fields.ts and
 // is validated by fieldsSchema on the way in when created through the API; here
 // it is trusted seed data.
 const postFields = [
