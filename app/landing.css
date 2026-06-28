@@ -1,0 +1,181 @@
+/* Landing page styles. Every rule is scoped under `.lp` so it overrides the
+   bare-element rules in globals.css without leaking into the dashboard or auth
+   screens. Reuses the design tokens from :root (--text, --muted, --border,
+   --accent ...) and adds a dark panel for the code mock. */
+
+.lp {
+  --line: var(--border);
+  --line-soft: var(--border-soft);
+  --panel-bg: #16161a;
+  --panel-ink: #e7e7ea;
+  --panel-muted: #8a8a93;
+  --panel-line: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+.lp main { max-width: none; margin: 0; padding: 0; }
+.lp h1, .lp h2, .lp h3, .lp p { margin: 0; }
+.lp a { color: inherit; text-decoration: none; }
+
+.lp-shell { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.lp-measure { max-width: 34rem; }
+.lp-measure-wide { max-width: 40rem; }
+
+/* Header */
+.lp-header {
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(10px);
+}
+.lp-header-inner {
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+}
+.lp-wordmark {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+}
+.lp-mark {
+  display: grid; place-items: center; width: 26px; height: 26px;
+  border-radius: 7px; background: var(--accent); color: var(--accent-ink);
+  box-shadow: 0 1px 2px rgba(22, 22, 26, 0.2);
+}
+.lp-nav { display: none; align-items: center; gap: 2rem; font-size: 13.5px; color: var(--muted); }
+.lp-nav a { transition: color 0.12s ease; }
+.lp-nav a:hover { color: var(--text); }
+.lp-header-actions { display: flex; align-items: center; gap: 1rem; }
+.lp-quiet-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 13.5px; color: var(--muted); transition: color 0.12s ease;
+}
+.lp-quiet-link:hover { color: var(--text); }
+
+/* Buttons. Prefixed with .lp so the color/background rules beat the
+   ".lp a { color: inherit }" reset (otherwise primary anchors render dark text
+   on the dark fill). The copy CTA reuses the shared <Button> component and only
+   borrows .lp-cta for sizing. */
+.lp .lp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 10px; padding: 0.7rem 1.15rem;
+  font-size: 14px; font-weight: 500; line-height: 1.15; white-space: nowrap;
+  border: 1px solid transparent; cursor: pointer;
+  transition: opacity 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.lp .lp-btn-sm { padding: 0.5rem 0.85rem; font-size: 13px; border-radius: 9px; }
+.lp .lp-btn-lg, .lp .lp-cta { padding: 0.8rem 1.3rem; font-size: 15px; border-radius: 11px; line-height: 1.15; }
+.lp .lp-btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.lp .lp-btn-primary:hover { background: var(--accent); opacity: 0.9; }
+.lp .lp-btn-outline { background: var(--surface); color: var(--text); border-color: var(--line); }
+.lp .lp-btn-outline:hover { background: var(--raise); }
+
+/* Eyebrow + headings */
+.lp-eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); }
+.lp-h1 {
+  font-family: var(--font-heading), Georgia, serif;
+  margin-top: 1.7rem; font-weight: 600; letter-spacing: -0.025em;
+  line-height: 1.06; font-size: clamp(46px, 7vw, 74px); text-wrap: balance;
+}
+.lp-h2 {
+  font-family: var(--font-heading), Georgia, serif;
+  margin-top: 1.25rem; font-weight: 600; letter-spacing: -0.02em;
+  line-height: 1.12; font-size: clamp(28px, 4vw, 36px); text-wrap: balance;
+}
+.lp-h2-lg {
+  font-family: var(--font-heading), Georgia, serif;
+  margin-top: 1.25rem; font-weight: 600; letter-spacing: -0.02em;
+  line-height: 1.1; font-size: clamp(32px, 5vw, 44px); text-wrap: balance;
+}
+.lp-lede { margin-top: 1.9rem; font-size: 18.5px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+.lp-body { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+.lp-h2 + .lp-body, .lp-h2-lg + .lp-body { margin-top: 1.4rem; }
+.lp-cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.5rem; }
+.lp-cta-center { justify-content: center; }
+.lp-connect-cta { margin-top: 2rem; }
+
+/* Hero (centered, no illustration) */
+.lp-hero { position: relative; padding: 104px 0 88px; overflow: hidden; }
+.lp-hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 60% at 50% -10%, rgba(22, 22, 26, 0.06), transparent 60%),
+    radial-gradient(circle at center, rgba(22, 22, 26, 0.05) 1px, transparent 1px);
+  background-size: auto, 24px 24px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 35%, #000 40%, transparent 80%);
+          mask-image: radial-gradient(70% 60% at 50% 35%, #000 40%, transparent 80%);
+}
+.lp-hero > .lp-shell { position: relative; z-index: 1; }
+.lp-hero-inner { max-width: 46rem; margin: 0 auto; text-align: center; }
+.lp-hero-inner .lp-lede { margin-left: auto; margin-right: auto; max-width: 34rem; }
+
+/* Clients: label left, clients right */
+.lp-clients { border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); background: var(--raise); }
+.lp-clients-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 26px 24px; text-align: center; }
+.lp-clients-label { flex-shrink: 0; font-size: 13.5px; color: var(--muted); }
+.lp-clients-list { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 1.9rem; }
+.lp-client { font-size: 15px; font-weight: 500; color: color-mix(in srgb, var(--text) 45%, transparent); transition: color 0.12s ease; }
+.lp-client:hover { color: var(--text); }
+
+/* Sections */
+.lp-section { padding: 96px 0; }
+.lp-divide { border-top: 1px solid var(--line-soft); }
+.lp-connect-grid { display: grid; gap: 3rem; align-items: center; }
+
+/* Connect panel */
+.lp-panel {
+  border-radius: 14px; overflow: hidden; background: var(--panel-bg);
+  border: 1px solid var(--panel-line);
+  box-shadow: 0 30px 60px -30px rgba(22, 22, 26, 0.4);
+}
+.lp-panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.1rem; border-bottom: 1px solid var(--panel-line);
+  font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace;
+  font-size: 12px; color: var(--panel-muted);
+}
+.lp-panel-tag { font-size: 11px; }
+.lp-panel-code {
+  margin: 0; padding: 1.2rem 1.3rem; background: none; border: none; border-radius: 0;
+  font-family: var(--font-geist-mono), ui-monospace, Menlo, monospace;
+  font-size: 13px; line-height: 1.7; color: var(--panel-ink); overflow-x: auto;
+}
+
+/* Steps */
+.lp-steps { display: grid; gap: 2.5rem; margin-top: 3.5rem; }
+.lp-step { border-top: 1px solid var(--line); padding-top: 1.3rem; }
+.lp-step-no { font-size: 13px; font-weight: 600; color: var(--accent); }
+.lp-step-title { margin-top: 0.9rem; font-size: 16.5px; font-weight: 600; letter-spacing: -0.005em; color: var(--text); }
+.lp-step .lp-body { margin-top: 0.55rem; }
+
+/* Features */
+.lp-features { display: grid; gap: 2.5rem; margin-top: 3.5rem; }
+.lp-feature-icon { display: inline-flex; color: var(--accent); }
+.lp-feature-title { margin-top: 0.9rem; font-size: 15.5px; font-weight: 600; letter-spacing: -0.005em; color: var(--text); }
+.lp-feature .lp-body { margin-top: 0.5rem; }
+
+/* Footer */
+.lp-footer { border-top: 1px solid var(--line-soft); padding: 40px 0; }
+.lp-footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.lp-footer-mark { font-family: var(--font-heading), Georgia, serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.lp-footer-meta { font-size: 12.5px; color: var(--muted); }
+
+@media (min-width: 720px) {
+  .lp-steps { grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .lp-features { grid-template-columns: repeat(2, 1fr); column-gap: 3rem; }
+  .lp-footer-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+  .lp-clients-inner { flex-direction: row; justify-content: space-between; text-align: left; gap: 2rem; }
+  .lp-clients-list { justify-content: flex-end; }
+}
+@media (min-width: 768px) {
+  .lp-nav { display: flex; }
+}
+@media (min-width: 960px) {
+  .lp-connect-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .lp-features { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-btn { transition: none; }
+}

@@ -16,7 +16,7 @@ Copy `.env.example` to `.env` and fill in:
 - `BETTER_AUTH_SECRET` - secret for signing sessions. Generate with
   `openssl rand -base64 32`.
 - `BETTER_AUTH_URL` - your app's origin, no trailing slash
-  (`http://localhost:3000` in dev, `https://mcp.inhalt.tech` in production).
+  (`http://localhost:3000` in dev, `https://inhalt.tech` in production).
 
 ## Setup
 

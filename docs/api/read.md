@@ -9,7 +9,7 @@ website, app, or any frontend fetches at runtime.
 - A project is addressed by its slug in the URL, so the same content is reachable
   from anywhere.
 
-Base URL: `https://mcp.inhalt.tech`
+Base URL: `https://inhalt.tech`
 
 ## List entries
 
@@ -79,7 +79,7 @@ Responses are plain JSON, so any HTTP client works. A typical page fetches a lis
 for an index and one entry for a detail page:
 
 ```js
-const BASE = "https://mcp.inhalt.tech/api/read/acme-blog";
+const BASE = "https://inhalt.tech/api/read/acme-blog";
 
 // Index page: the latest posts in the "news" category.
 const { entries } = await fetch(`${BASE}/post?category=news&limit=10`)

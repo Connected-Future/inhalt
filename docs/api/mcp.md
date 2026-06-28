@@ -5,7 +5,7 @@ client (Claude, Cursor, and others) connects to one endpoint and gets a set of
 typed tools for reading and editing content. The protocol is the API: there is no
 SDK.
 
-Endpoint: `https://mcp.inhalt.tech`
+Endpoint: `https://inhalt.tech`
 
 Transport is Streamable HTTP. Every request authenticates, either by signing in
 through your browser (OAuth) or with a bearer API key.
@@ -24,7 +24,7 @@ gets access to your project. Nothing to copy or store.
 {
   "mcpServers": {
     "inhalt": {
-      "url": "https://mcp.inhalt.tech"
+      "url": "https://inhalt.tech"
     }
   }
 }
@@ -40,7 +40,7 @@ the dashboard (the secret is shown once, copy it then) and add it to the config:
 {
   "mcpServers": {
     "inhalt": {
-      "url": "https://mcp.inhalt.tech",
+      "url": "https://inhalt.tech",
       "headers": {
         "Authorization": "Bearer YOUR_KEY"
       }

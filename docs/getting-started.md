@@ -17,7 +17,7 @@ gets access to your project. Nothing to copy or store:
 {
   "mcpServers": {
     "inhalt": {
-      "url": "https://mcp.inhalt.tech"
+      "url": "https://inhalt.tech"
     }
   }
 }
@@ -34,7 +34,7 @@ again. Add it to the config in an `Authorization` header:
 {
   "mcpServers": {
     "inhalt": {
-      "url": "https://mcp.inhalt.tech",
+      "url": "https://inhalt.tech",
       "headers": {
         "Authorization": "Bearer YOUR_KEY"
       }
