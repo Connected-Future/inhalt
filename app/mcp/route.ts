@@ -275,8 +275,22 @@ const authed = withMcpAuth(handler, verifyToken, { required: true })
 // (RFC 9728 WWW-Authenticate challenge).
 const resourceMetadataUrl = `${process.env.BETTER_AUTH_URL ?? "http://localhost:3000"}/.well-known/oauth-protected-resource`
 
+// mcp-handler's Streamable transport only answers when the request URL's
+// pathname equals its endpoint ("/mcp"); any other path falls through to a 404.
+// But proxy.ts serves the bare origin by rewriting "/" to this route, and a
+// Next rewrite keeps req.url as the original "/", so the transport would 404 an
+// authenticated POST (the 401 path short-circuits earlier, which is why only
+// signed-in clients hit it). Normalize the path to "/mcp" so both the rewritten
+// bare origin and a direct "/mcp" reach the transport.
+function normalizePath(req: Request): Request {
+  const url = new URL(req.url)
+  if (url.pathname === "/mcp") return req
+  url.pathname = "/mcp"
+  return new Request(url, req)
+}
+
 async function authedWithChallenge(req: Request): Promise<Response> {
-  const res = await authed(req)
+  const res = await authed(normalizePath(req))
   if (res.status !== 401) return res
   const headers = new Headers(res.headers)
   headers.set("WWW-Authenticate", `Bearer resource_metadata="${resourceMetadataUrl}"`)
