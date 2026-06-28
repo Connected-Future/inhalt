@@ -17,9 +17,10 @@ import { nextCookies } from "better-auth/next-js"
 
 import { prisma } from "@/lib/prisma"
 
-// The MCP server lives at <origin>/mcp; this is the OAuth "resource" clients
-// authorize against. Derived from the app origin so dev and prod stay in sync.
-const mcpResource = `${process.env.BETTER_AUTH_URL ?? "http://localhost:3000"}/mcp`
+// The MCP server is the app origin itself - the bare URL is the endpoint, and
+// proxy.ts routes MCP requests there. This is the OAuth "resource" clients
+// authorize against, derived from the app origin so dev and prod stay in sync.
+const mcpResource = process.env.BETTER_AUTH_URL ?? "http://localhost:3000"
 
 // Turn an email into a readable, URL-safe project slug, with a short random
 // suffix so two "jane@..." signups can't collide on Project.slug (it is @unique

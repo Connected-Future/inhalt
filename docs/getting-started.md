@@ -17,7 +17,7 @@ header:
 {
   "mcpServers": {
     "inhalt": {
-      "url": "https://app.inhalt.tech/mcp",
+      "url": "https://mcp.inhalt.tech",
       "headers": {
         "Authorization": "Bearer YOUR_KEY"
       }

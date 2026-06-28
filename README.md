@@ -7,7 +7,7 @@ Inhalt is an open-source, MCP-native CMS. Instead of a traditional admin UI or a
 The protocol is the API. There is no SDK and no glue code. The client reads your content schema, finds the right entry, and proposes a clean, typed patch against real fields, never freeform text.
 
 - **Website:** [inhalt.tech](https://inhalt.tech)
-- **MCP endpoint:** `https://app.inhalt.tech/mcp`
+- **MCP endpoint:** `https://mcp.inhalt.tech`
 - **License:** MIT
 - **Self-hostable:** one container, your database, your keys. A hosted edge is also available.
 

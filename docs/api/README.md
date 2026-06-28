@@ -14,7 +14,7 @@ called directly.
 ## Base URL
 
 ```
-https://app.inhalt.tech
+https://mcp.inhalt.tech
 ```
 
 ## Error shape

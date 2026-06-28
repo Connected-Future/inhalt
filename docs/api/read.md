@@ -9,7 +9,7 @@ website, app, or any frontend fetches at runtime.
 - A project is addressed by its slug in the URL, so the same content is reachable
   from anywhere.
 
-Base URL: `https://app.inhalt.tech`
+Base URL: `https://mcp.inhalt.tech`
 
 ## List entries
 

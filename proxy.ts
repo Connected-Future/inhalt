@@ -12,8 +12,22 @@ import { getSessionCookie } from "better-auth/cookies"
 
 const AUTH_PAGES = ["/login", "/signup"]
 
+// MCP's Streamable HTTP transport always sends `Accept: text/event-stream` (on
+// its POST calls and any GET stream), whereas a browser asks for text/html. That
+// lets the bare origin double as the MCP endpoint: an MCP client hitting "/" is
+// routed to the /mcp handler, a browser falls through to the page. The published
+// "/mcp" URL keeps working too - it reaches the handler directly, skipping this.
+function isMcpRequest(request: NextRequest): boolean {
+  return (request.headers.get("accept") ?? "").includes("text/event-stream")
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  if (pathname === "/" && isMcpRequest(request)) {
+    return NextResponse.rewrite(new URL("/mcp", request.url))
+  }
+
   const hasSession = Boolean(getSessionCookie(request))
 
   if (pathname.startsWith("/dashboard") && !hasSession) {

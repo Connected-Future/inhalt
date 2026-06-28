@@ -25,4 +25,4 @@ create the first user + workspace.
 
 ### Docs
 A self-hosting guide (README section or `docs/self-host.md`): env vars, the
-compose command, how to point an MCP client at the self-hosted `/mcp` endpoint.
+compose command, how to point an MCP client at the self-hosted endpoint.
