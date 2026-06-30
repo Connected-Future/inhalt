@@ -2,9 +2,9 @@
 
 **The CMS your AI tools can run.**
 
-Inhalt is an open-source, MCP-native CMS. Instead of a traditional admin UI or a REST/GraphQL SDK, the content layer is exposed entirely through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io). Any MCP client connects to the Inhalt server and you create and edit content just by chatting.
+Inhalt is an open-source, MCP-native CMS. Instead of clicking through a traditional admin UI, the content layer is exposed through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io). Any MCP client connects to the Inhalt server and you create and edit content just by chatting.
 
-The protocol is the API. There is no SDK and no glue code. The client reads your content schema, finds the right entry, and proposes a clean, typed patch against real fields, never freeform text.
+The protocol is the API. The client reads your content schema, finds the right entry, and proposes a clean, typed patch against real fields, never freeform text.
 
 - **Website:** [inhalt.tech](https://inhalt.tech)
 - **MCP endpoint:** `https://inhalt.tech`
@@ -13,7 +13,7 @@ The protocol is the API. There is no SDK and no glue code. The client reads your
 
 ## How it works
 
-Three steps, no SDK.
+Three steps.
 
 1. **Connect the endpoint.** Add one block to your MCP config. Inhalt exposes your whole content tree as typed tools.
 2. **Operate on content.** The client reads the schema, finds the right entry, and proposes a clean patch against real, typed fields.

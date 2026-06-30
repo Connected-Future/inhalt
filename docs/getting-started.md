@@ -1,6 +1,6 @@
 # Getting started
 
-Connect an MCP client to Inhalt and start operating on content. No SDK.
+Connect an MCP client to Inhalt and start operating on content.
 
 ## 1. Connect a client
 

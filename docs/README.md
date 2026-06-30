@@ -2,7 +2,7 @@
 
 Inhalt is an open-source, MCP-native CMS. The content layer is exposed through the
 Model Context Protocol, so any MCP client can read and edit your content directly.
-The protocol is the API. There is no SDK.
+The protocol is the API.
 
 ## Using Inhalt
 

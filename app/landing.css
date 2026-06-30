@@ -46,6 +46,8 @@
 .lp-nav { display: none; align-items: center; gap: 2rem; font-size: 13.5px; color: var(--muted); }
 .lp-nav a { transition: color 0.12s ease; }
 .lp-nav a:hover { color: var(--text); }
+/* The letter link sits apart from the plain nav with a quiet italic. */
+.lp-nav .lp-nav-letter { font-style: italic; font-weight: 400; }
 .lp-header-actions { display: flex; align-items: center; gap: 1rem; }
 .lp-quiet-link {
   display: inline-flex; align-items: center; gap: 0.35rem;
@@ -163,6 +165,20 @@
 .lp-start .config-block { margin-top: 1rem; }
 .lp-start-note { margin: 1.5rem 0 0; font-size: 0.9rem; }
 .lp-start .dialog-actions { margin-top: 0.75rem; }
+
+/* Letter of intent: a single centered prose column reusing the lp tokens. */
+.lp-letter .lp-h2-lg { margin-top: 1.1rem; }
+.lp-letter-body { margin-top: 2.2rem; display: grid; gap: 1.3rem; }
+.lp-letter-body p { font-size: 16px; line-height: 1.7; color: var(--text); }
+.lp-letter-list { margin: 0.2rem 0 0; padding: 0; list-style: none; display: grid; gap: 1rem; }
+.lp-letter-list li { font-size: 16px; line-height: 1.7; color: var(--muted); padding-left: 1.1rem; border-left: 2px solid var(--line); }
+.lp-letter-list strong { color: var(--text); font-weight: 600; }
+.lp-letter-sign {
+  margin-top: 2.6rem; padding-top: 1.6rem; border-top: 1px solid var(--line-soft);
+  font-family: var(--font-heading), Georgia, serif; font-style: italic;
+  font-size: 17px; line-height: 1.5; color: var(--text);
+}
+.lp-letter-ps { margin-top: 1.4rem; font-size: 14.5px; line-height: 1.65; color: var(--muted); }
 
 /* Footer */
 .lp-footer { border-top: 1px solid var(--line-soft); padding: 40px 0; }

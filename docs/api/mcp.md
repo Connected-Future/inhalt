@@ -2,8 +2,7 @@
 
 Inhalt exposes your whole content layer over the Model Context Protocol. An MCP
 client (Claude, Cursor, and others) connects to one endpoint and gets a set of
-typed tools for reading and editing content. The protocol is the API: there is no
-SDK.
+typed tools for reading and editing content. The protocol is the API.
 
 Endpoint: `https://inhalt.tech`
 

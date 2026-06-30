@@ -6,7 +6,7 @@ export function LandingHeader() {
   return (
     <header className="lp-header">
       <div className="lp-shell lp-header-inner">
-        <a href="#top" className="lp-wordmark" aria-label="Inhalt">
+        <a href="/#top" className="lp-wordmark" aria-label="Inhalt">
           <span className="lp-mark" aria-hidden>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <rect x="2.5" y="3" width="9" height="1.6" rx="0.8" fill="currentColor" />
@@ -17,10 +17,10 @@ export function LandingHeader() {
           Inhalt
         </a>
         <nav className="lp-nav">
-          <a href="#how">How it works</a>
-          <a href="#features">Features</a>
-          <a href="#open">Open source</a>
           <Link href="/docs">Docs</Link>
+          <Link href="/letter" className="lp-nav-letter">
+            Our letter
+          </Link>
         </nav>
         <div className="lp-header-actions">
           <Link href="/login" className="lp-quiet-link">
